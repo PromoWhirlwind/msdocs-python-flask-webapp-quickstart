@@ -1,4 +1,4 @@
-import pymongo
+'''import pymongo
 import chromadb
 
 
@@ -90,12 +90,12 @@ def answer_question(client, question, fulltext):
     # Construct a response based on relevant articles
     print("GPT ANSWER")
     prompt = f"""Directions:
-    '''Using the following article(s) information to help answer the query, provide a concise answer to the question, providing direct quotes to the answer in the article. 
+    """Using the following article(s) information to help answer the query, provide a concise answer to the question, providing direct quotes to the answer in the article. 
     Do NOT make up or hallucinate information, instead using the articles themselves to both come up with and ground your response. Try not to round numbers unless specified in the prompt.
     When responding, make sure to be precise with your wording and terminology. Do not make terms more vague as that can cause confusion. Multiple sources can be used together to help find an answer.
     Please reference the article IDs using exact quotes following MLA format that include helpful information in your answer as citations (if you cite please include direct quotes with \"...\" for gaps and [bracketed text] for intergections or replaced words).
     After finishing creating your anwer, please fact check it with the provided articles to ensure it is correct. Let the user know if the article does not give enough information to answer or infer an answer for the user's question.
-    '''
+    """
     
     Question: {question} 
     
@@ -280,7 +280,7 @@ def RAG(query, Azureclient, collection, full_collection_data):
         i += 1
     return answer, prompt
 
-
+'''
 
 
 
@@ -302,10 +302,13 @@ app = Flask(__name__)
 
 def website_respond(user_input):
     # Replace these function calls with your actual implementation
-    answer, prompt = RAG(user_input, Azureclient, collection, full_collection_data)
-    fulltext = prompt
+    #answer, prompt = RAG(user_input, Azureclient, collection, full_collection_data)
+    #fulltext = prompt
     print("Processing complete")  # Add this line
-    return answer, fulltext
+    #return answer, fulltext
+    a = "Hello "
+    b = "World!"
+    return a, b
 
 @app.route('/')
 def index():
