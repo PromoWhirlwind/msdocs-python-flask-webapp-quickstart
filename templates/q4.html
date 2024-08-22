@@ -126,7 +126,7 @@
             transition: max-height 0.5s ease;
         }
         .dropdown.active {
-            max-height: 1000px; /* Adjust this value as needed */
+            max-height: 500px; /* Adjust this value as needed */
         }
         .dropdown p {
             margin: 0;
@@ -191,15 +191,23 @@
             <div class="header">
                 <h1>LSEG AMR Discovery</h1>
                 <div class="question-box">
-                    <input type="text" id="questionInput" placeholder="Type your question and press Enter">
+                    <input type="text" id="questionInput" value="What downside scenario does TD Cowen foresee for Nvidia in 2024?">
                 </div>
                 <div class="dropdown" id="dropdown">
                     <img id="expandIcon" class="expand-icon" src="https://cdn-icons-png.flaticon.com/512/60/60781.png" alt="Expand/Collapse">
-                    <p id="responseText"></p>
+                    <p>TD Cowen foresees a downside scenario for Nvidia in 2024 primarily due to "US export restrictions to China," which present a "material headwind" and risk to significant portions of Nvidia's long-term Datacenter Total Addressable Market (TAM).
+
+
+                    <strong>Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI.</strong>
+                    </p>
                 </div>
             </div>
-            <div class="articles" id="articles">
-                <!-- Articles will be dynamically inserted here -->
+            <div class="articles">
+                <div class="article">
+                    <h3>Remember That Shocking $11B Guide A Year Ago? NVIDIA Just Guided To 2.5X That!</h3>
+                    <p>22 May 2024 - TD Cowen</p>
+                    <p2>US export restrictions to China present a material headwind.</p2>
+                </div>
             </div>
         </div>
         <div style="flex: 0.5; background-color: white;"></div>
@@ -216,81 +224,8 @@
                 expandIcon.style.transform = "rotate(0deg)";
             }
         }
-    
+
         document.getElementById('expandIcon').addEventListener('click', toggleDropdown);
-    
-        // Function to handle form submission
-        document.getElementById('questionInput').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                var userInput = document.getElementById('questionInput').value;
-                
-                // Ensure the input is not empty
-                if (userInput.trim() !== "") {
-                    fetch('http://127.0.0.1:5601/api/respond', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ input: userInput }),
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Handle the case where no response is returned
-                        if (!data || !data.response) {
-                            console.error('No response data received');
-                            return;
-                        }
-                        
-                        // Display the bot's response
-                        document.getElementById('responseText').textContent = data.response;
-                        document.getElementById('dropdown').classList.add('active');
-                        document.getElementById('expandIcon').style.transform = "rotate(180deg)";
-                        
-                        var articlesContainer = document.getElementById('articles');
-                        articlesContainer.innerHTML = ''; // Clear previous articles
-                        
-                        // Check if referenced_articles exists and is an array
-                        if (Array.isArray(data.added_references) && data.added_references.length > 0) {
-                            // Create and append new article elements based on the response
-                            data.added_references.forEach(article => {
-                                var articleElement = document.createElement('div');
-                                articleElement.className = 'article';
-                                
-                                var articleTitle = document.createElement('h3');
-                                articleTitle.textContent = article.title;
-                                articleElement.appendChild(articleTitle);
-                                
-                                var articleDate = document.createElement('p');
-                                articleDate.textContent = article.published_date + ' - ' + article.contributors;
-                                articleElement.appendChild(articleDate);
-                                
-                                var articleContent = document.createElement('p2');
-                                articleContent.textContent = article.quote;
-                                articleElement.appendChild(articleContent);
-                                
-                                articlesContainer.appendChild(articleElement);
-                            });
-                        } else {
-                            console.log('No referenced articles received');
-                            var noArticlesMessage = document.createElement('p');
-                            noArticlesMessage.textContent = 'No articles found for this query.';
-                            articlesContainer.appendChild(noArticlesMessage);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                    });
-                } else {
-                    console.warn('Input field is empty.');
-                }
-            }
-        });
-    </script>    
+    </script>
 </body>
 </html>
