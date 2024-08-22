@@ -3,152 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMR Copilot</title>
+    <title>ModuleQ Mockup</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: white;
             height: 100vh;
-            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-bar {
+            width: 100%;
+            background-color: white;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        body {
+            padding-top: 50px; /* Adjust this value based on the height of your top-bar */
+        }
+        .top-bar img {
+            height: 30px;
+        }
+        .top-bar h1 {
+            font-size: 24px;
+            color: #00847a;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .main-content h1 {
+            font-size: 40px;
+            color: #00847a;
+            margin: 20px 0;
+            flex-grow: 1;
+            text-align: left;
         }
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column;
-            width: 80%;
-            height: auto;
-            max-height: 90%;
-        }
-        .form-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
+            height: 100%;
             width: 100%;
         }
-        .response-section, .fulltext-section {
-            padding: 10px;
-            margin: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            hyphens: auto;
-        }
-        .response-section {
-            border-top: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-        }
-        .fulltext-section {
-            border-top: 1px solid #ccc;
-            border-left: 1px solid #ccc;
+        .sidebar {
+            width: 20%;
+            background-color: #f5f8f6;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid #dcdcdc;
+            height: 100vh;
+            position: fixed;
             overflow-y: auto;
         }
-        .form-section input[type="text"] {
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            max-width: 800px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .sidebar h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
         }
-        .form-section button {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #1a4e4f;
+            font-size: 14px;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-left: 25%;
+            width: 55%;
+        }
+        .header {
+            border-bottom: 1px solid #dcdcdc;
+            padding-bottom: 10px;
+        }
+        .questions {
+            margin: 20px 0;
+        }
+        .questions h2 {
             font-size: 18px;
-            margin-top: 10px;
+            color: #333;
+            margin-bottom: 10px;
         }
-        .form-section button:hover {
-            background-color: #0056b3;
+        .question-box {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            height: 60px; /* Increased height */
         }
-        .loading-bar {
-            width: 80%;
-            max-width: 800px;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 10px;
+        .question-box input[type="text"] {
+            width: 100%;
+            padding: 0px 15px 30px; /* Increased top padding, reduced bottom padding */
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            height: 50px; /* Explicit height */
         }
-        .loading-bar div {
-            height: 10px;
-            width: 0;
-            background-color: #007BFF;
+        .dropdown {
+            margin-top: 60px;
+            background-color: #e9f7f6;
+            padding: 20px;
+            border-radius: 4px;
+            font-size: 18px;
+            color: #333;
+            position: relative;
+            height: 0px;
+            transition: height 0.3s ease;
         }
-        .response-section h2, .fulltext-section h2 {
-            margin-top: 0;
+        .dropdown.active {
+            height: 65px;
+        }
+        .dropdown p {
+            margin: 0;
+            display: none;
+        }
+        .dropdown.active p {
+            display: block;
+            margin-top: -10px;
+            font-size: 18px;
+            white-space: pre-line;
+        }
+        .expand-icon {
+            position: absolute;
+            padding: 5px;
+            top: 5px;
+            right: 5px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            transform-origin: center;
+        }
+        .articles {
+            margin-top: 35px;
+        }
+        .article {
+            margin-bottom: 35px;
+        }
+        .article h3 {
+            font-size: 20px;
+            color: #00847a;
+            margin-bottom: -10px;
+        }
+        .article p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .article p2 {
+            font-size: 15px;
+            color: #000000;
         }
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <a href="https://www.moduleq.com">
+            <img src="https://www.moduleq.com/hubfs/ModuleQ_Logo.svg" alt="ModuleQ Logo">
+        </a>
+    </div>
     <div class="container">
-        <div class="form-section">
-            <h1>AMR Copilot</h1>
-            <form id="respondForm">
-                <input type="text" id="input" name="input" placeholder="Enter your investment banking question" required>
-                <button type="submit">Respond</button>
-            </form>
-            <div class="loading-bar" id="loadingBar"><div></div></div>
+        <div class="sidebar">
+            <h3>Questions</h3>
+            <ul>
+                <li><a href="#">What was Nvidia's revenue growth yoy for Q2 of 2024?</a></li>
+                <li><a href="#">What downside scenario does TD Cowen foresee for Nvidia in 2024?</a></li>
+            </ul>
         </div>
-        <div style="display: flex; flex: 1; width: 100%; overflow-y: auto;">
-            <div class="response-section">
-                <h2>Bot Response</h2>
-                <p id="response"></p>
+        <div class="main-content">
+            <div class="header">
+                <h1>LSEG AMR Discovery</h1>
+                <div class="question-box">
+                    <input type="text" id="questionInput" value="What was Nvidia's revenue growth yoy for Q2 of 2024?">
+                </div>
+                <div class="dropdown" id="dropdown">
+                    <img id="expandIcon" class="expand-icon" src="https://cdn-icons-png.flaticon.com/512/60/60781.png" alt="Expand/Collapse">
+                    <p>Nvidia's revenue growth year-over- year (YoY) for Q2 of 2024 was 262%.
+
+
+                    <strong>Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI.</strong>
+                    </p>
+                </div>
             </div>
-            <div class="fulltext-section">
-                <h2>Data and Query</h2>
-                <div id="fulltext"></div>
+            <div class="articles">
+                <div class="article">
+                    <h3>Remember That Shocking $11B Guide A Year Ago? NVIDIA Just Guided To 2.5X That!</h3>
+                    <p>22 May 2024 - TD Cowen</p>
+                    <p2>Nvidia's total revenue in the January quarter was $22.1 billion, up 22% sequentially, up 265% year over year, and ahead of guidance of $20 billion.</p2>
+                </div>
+                <div class="article">
+                    <h3>Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI</h3>
+                    <p>23 May 2024 - Morningstar, Inc.</p>
+                    <p2>Very strong results and guidance from NVIDIA as revenue of $26B grew 18% Q/Q and +262% Y/Y</p2>
+                </div>
             </div>
         </div>
+        <div style="flex: 0.5; background-color: white;"></div>
     </div>
 
     <script>
-        document.getElementById('respondForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const input = document.getElementById('input').value;
-            const loadingBar = document.getElementById('loadingBar').firstElementChild;
-            loadingBar.style.width = '0';
+        function toggleDropdown() {
+            var dropdown = document.getElementById('dropdown');
+            var expandIcon = document.getElementById('expandIcon');
+            dropdown.classList.toggle('active');
+            if (dropdown.classList.contains('active')) {
+                expandIcon.style.transform = "rotate(180deg)";
+            } else {
+                expandIcon.style.transform = "rotate(0deg)";
+            }
+        }
 
-            const interval = setInterval(() => {
-                const width = parseInt(loadingBar.style.width);
-                if (width < 100) {
-                    loadingBar.style.width = (width + 1) + '%';
-                } else {
-                    clearInterval(interval);
-                }
-            }, 100);
-
-            fetch('/respond', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ input: input }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                clearInterval(interval);
-                loadingBar.style.width = '100%';
-                document.getElementById('response').innerText = data.response;
-                document.getElementById('fulltext').innerText = data.fulltext || 'No full text available.';
-            })
-            .catch(error => {
-                clearInterval(interval);
-                loadingBar.style.width = '100%';
-                console.error('Error:', error);
-            });
-        });
+        document.getElementById('expandIcon').addEventListener('click', toggleDropdown);
     </script>
 </body>
 </html>
