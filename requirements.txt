@@ -1,3 +1,9 @@
-Flask==2.2.2
-gunicorn
-Werkzeug==2.2.2
+numpy==1.26.4
+gdown
+chromadb
+Flask==3.0.3
+openai==1.42.0
+pipreqs==0.5.0
+pymongo==4.7.2
+torch==2.3.0
+tqdm==4.66.4
