@@ -41,22 +41,12 @@
             flex-grow: 1;
             text-align: center;
         }
-        .top-bar .ip-box {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-        }
-        .ip-box label {
-            font-size: 14px;
-            margin-right: 10px;
-            color: #333;
-        }
-        .ip-box input[type="text"] {
-            padding: 5px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 150px;
+        .main-content h1 {
+            font-size: 40px;
+            color: #00847a;
+            margin: 20px 0;
+            flex-grow: 1;
+            text-align: left;
         }
         .container {
             display: flex;
@@ -185,10 +175,6 @@
         <a href="https://www.moduleq.com">
             <img src="https://www.moduleq.com/hubfs/ModuleQ_Logo.svg" alt="ModuleQ Logo">
         </a>
-        <div class="ip-box">
-            <label for="apiIpPort">API IP:Port</label>
-            <input type="text" id="apiIpPort" value="207.68.237.188:5601">
-        </div>
     </div>
     <div class="container">
         <div class="sidebar">
@@ -238,11 +224,10 @@
             if (event.key === 'Enter') {
                 event.preventDefault();
                 var userInput = document.getElementById('questionInput').value;
-                var apiIpPort = document.getElementById('apiIpPort').value;
                 
                 // Ensure the input is not empty
                 if (userInput.trim() !== "") {
-                    fetch('http://' + apiIpPort + '/api/respond', {
+                    fetch('http://207.68.237.188:5601/api/respond', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
