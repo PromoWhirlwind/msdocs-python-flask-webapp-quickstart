@@ -180,7 +180,7 @@
         <div class="sidebar">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="margin: 0;">Questions</h3>
-                <a href="index.html" style="text-decoration: none; color: #0a3e3f; font-size: 14px; font-weight: bold;">New Question</a>
+                <a href="#" id="newQuestionLink" style="text-decoration: none; color: #0a3e3f; font-size: 14px; font-weight: bold;">New Question</a>
             </div>
             <ul>
                 <li>
@@ -268,7 +268,24 @@
                 });
             });
         });
-    
+
+                // Function to clear the fields for a new question
+        document.getElementById('newQuestionLink').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Clear the question input field
+            document.getElementById('questionInput').value = '';
+
+            // Clear the response text
+            document.getElementById('responseText').textContent = '';
+            document.getElementById('dropdown').classList.remove('active');
+            document.getElementById('expandIcon').style.transform = "rotate(0deg)";
+
+            // Clear the articles section
+            const articlesContainer = document.getElementById('articles');
+            articlesContainer.innerHTML = '';
+        });
+
         // Function to handle form submission
         document.getElementById('questionInput').addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
