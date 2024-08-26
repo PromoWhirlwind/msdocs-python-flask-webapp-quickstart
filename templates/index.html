@@ -183,9 +183,15 @@
                 <a href="index.html" style="text-decoration: none; color: #0a3e3f; font-size: 14px; font-weight: bold;">New Question</a>
             </div>
             <ul>
-                <li><a href="q6.html">What was Nvidia's revenue growth yoy for Q2 of 2024?</a></li>
-                <li><a href="q4.html">What downside scenario does TD Cowen foresee for Nvidia in 2024?</a></li>
-            </ul>
+                <li>
+                    <a href="#" id="q6" data-question="What was Nvidia's revenue growth yoy for Q2 of 2024?" 
+                       data-response="Nvidia's revenue growth year-over-year (YoY) for Q2 of 2024 was 262%.<br><strong>Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI.</strong>" 
+                       data-articles='[{"title":"Remember That Shocking $11B Guide A Year Ago? NVIDIA Just Guided To 2.5X That!","date":"22 May 2024 - TD Cowen","quote":"Nvidia&#39;s total revenue in the January quarter was $22.1 billion, up 22% sequentially, up 265% year over year, and ahead of guidance of $20 billion."},{"title":"Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI","date":"23 May 2024 - Morningstar, Inc.","quote":"Very strong results and guidance from NVIDIA as revenue of $26B grew 18% Q/Q and +262% Y/Y"}]'>
+                       What was Nvidia's revenue growth yoy for Q2 of 2024?
+                    </a>
+                </li>
+                 <li><a href="#" id="q4" data-question="What downside scenario does TD Cowen foresee for Nvidia in 2024?" data-response="TD Cowen foresees a downside scenario for Nvidia in 2024 primarily due to 'US export restrictions to China,' which present a 'material headwind' and risk to significant portions of Nvidia's long-term Datacenter Total Addressable Market (TAM).<br><strong>Morningstar | Nvidia Should Continue to Earn Historic Revenue Growth From Generative AI.</strong>" data-articles='[{"title":"Remember That Shocking $11B Guide A Year Ago? NVIDIA Just Guided To 2.5X That!","date":"22 May 2024 - TD Cowen","quote":"US export restrictions to China present a material headwind."}]'>What downside scenario does TD Cowen foresee for Nvidia in 2024?</a></li>
+            </ul>            
         </div>
         <div class="main-content">
             <div class="header">
@@ -206,6 +212,7 @@
     </div>
 
     <script>
+        // Function to toggle dropdown
         function toggleDropdown() {
             var dropdown = document.getElementById('dropdown');
             var expandIcon = document.getElementById('expandIcon');
@@ -218,6 +225,49 @@
         }
     
         document.getElementById('expandIcon').addEventListener('click', toggleDropdown);
+    
+        // Function to handle sidebar link clicks and autofill content
+        document.querySelectorAll('.sidebar ul li a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                // Get the data attributes from the clicked link
+                const question = this.getAttribute('data-question');
+                const response = this.getAttribute('data-response');
+                const articles = JSON.parse(this.getAttribute('data-articles'));
+                
+                // Populate the question input
+                document.getElementById('questionInput').value = question;
+                
+                // Populate the response
+                document.getElementById('responseText').innerHTML = response;
+                document.getElementById('dropdown').classList.add('active');
+                document.getElementById('expandIcon').style.transform = "rotate(180deg)";
+                
+                // Populate the articles section
+                const articlesContainer = document.getElementById('articles');
+                articlesContainer.innerHTML = ''; // Clear previous articles
+    
+                articles.forEach(article => {
+                    const articleElement = document.createElement('div');
+                    articleElement.className = 'article';
+    
+                    const articleTitle = document.createElement('h3');
+                    articleTitle.textContent = article.title;
+                    articleElement.appendChild(articleTitle);
+    
+                    const articleDate = document.createElement('p');
+                    articleDate.textContent = article.date;
+                    articleElement.appendChild(articleDate);
+    
+                    const articleContent = document.createElement('p2');
+                    articleContent.textContent = article.quote;
+                    articleElement.appendChild(articleContent);
+    
+                    articlesContainer.appendChild(articleElement);
+                });
+            });
+        });
     
         // Function to handle form submission
         document.getElementById('questionInput').addEventListener('keydown', function(event) {
