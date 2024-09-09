@@ -454,21 +454,26 @@
 
     <!-- Loader HTML (centered in the foreground) -->
     <div class="loader" id="loader" style="position: absolute; top: 40%; left: 45%; z-index: 999; display: none;">
-        <div id="overlay" style="position: fixed; top: -5000%; left: -5000%; width: 10000%; height: 10000%; background-color: rgba(128, 128, 128, 0.5);"></div>
         <div class="logo" style="z-index: 1000;"></div>
         <div class="triangle_morph_2" style="z-index: 1000;"></div>
         <div class="triangle_morph_1_bg" style="z-index: 1000;"></div>
         <div class="triangle_morph_1" style="z-index: 1000;"></div>
     </div>
+    <div id="loader" style="position: fixed; top: 0; left: 0; width: 100%; height: calc(100%); background-color: rgba(128, 128, 128, 0.5); display: none;"></div>
+
 
     <script>
         // Add this section to handle the loader visibility
         function showLoader() {
-            document.getElementById('loader').style.display = 'flex';
+            document.querySelectorAll('#loader').forEach(loader => {
+                loader.style.display = 'flex';
+            });
         }
 
         function hideLoader() {
-            document.getElementById('loader').style.display = 'none';
+            document.querySelectorAll('#loader').forEach(loader => {
+                loader.style.display = 'none';
+            });
         }
 
         // Function to toggle dropdown
