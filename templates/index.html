@@ -244,6 +244,7 @@
           animation: morphing2 3s infinite ease-in-out;
         }
 
+
         @keyframes boarder {
           0% {
             width: 110px;
@@ -559,7 +560,7 @@
                 if (userInput.trim() !== "") {
                     showLoader(); // Show the loader when submitting the question
                     
-                    fetch('https://4f32-207-68-237-188.ngrok-free.app/api/respond', {
+                    fetch('https://amazed-meerkat-sincerely.ngrok-free.app/api/respond', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
